@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.joda.time.DateTime;
+import org.retail.entity.Family;
 import org.retail.entity.Feature;
 import org.retail.entity.Product;
 
@@ -22,43 +23,44 @@ import org.retail.entity.Product;
  */
 @Entity
 @Table
-public class Price implements Serializable {
+public class Discount implements Serializable {
 
-    private Long priceId;
+    private Long discountId;
     private Product item;
     private Feature feature;
+    private Family family;
     private BigDecimal value;
     private DateTime endorsedFrom;
 
-    public Price() {
+    public Discount() {
     }
 
-    public Price(Long priceId, Product item, Feature feature, BigDecimal value, DateTime endorsedFrom) {
-        this.priceId = priceId;
+    public Discount(Product item, Feature feature, Family family, BigDecimal value, DateTime endorsedFrom) {
         this.item = item;
         this.feature = feature;
+        this.family = family;
         this.value = value;
         this.endorsedFrom = endorsedFrom;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getDiscountId() {
+        return discountId;
+    }
+
+    public void setDiscountId(Long discountId) {
+        this.discountId = discountId;
+    }
+
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     public DateTime getEndorsedFrom() {
         return endorsedFrom;
     }
 
     public void setEndorsedFrom(DateTime endorsedFrom) {
         this.endorsedFrom = endorsedFrom;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getPriceId() {
-        return priceId;
-    }
-
-    public void setPriceId(Long priceId) {
-        this.priceId = priceId;
     }
 
     @ManyToOne
@@ -81,7 +83,17 @@ public class Price implements Serializable {
         this.feature = feature;
     }
 
-    @Column(name = "price", precision = 255, scale = 2)
+    @ManyToOne
+    @JoinColumn
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    @Column(name = "value_", nullable = false, precision = 255, scale = 2)
     public BigDecimal getValue() {
         return value;
     }
@@ -93,11 +105,11 @@ public class Price implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + (this.priceId != null ? this.priceId.hashCode() : 0);
-        hash = 53 * hash + (this.item != null ? this.item.hashCode() : 0);
-        hash = 53 * hash + (this.feature != null ? this.feature.hashCode() : 0);
-        hash = 53 * hash + (this.value != null ? this.value.hashCode() : 0);
-        hash = 53 * hash + (this.endorsedFrom != null ? this.endorsedFrom.hashCode() : 0);
+        hash = 71 * hash + (this.item != null ? this.item.hashCode() : 0);
+        hash = 71 * hash + (this.feature != null ? this.feature.hashCode() : 0);
+        hash = 71 * hash + (this.family != null ? this.family.hashCode() : 0);
+        hash = 71 * hash + (this.value != null ? this.value.hashCode() : 0);
+        hash = 71 * hash + (this.endorsedFrom != null ? this.endorsedFrom.hashCode() : 0);
         return hash;
     }
 
@@ -109,14 +121,14 @@ public class Price implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Price other = (Price) obj;
-        if (this.priceId != other.priceId && (this.priceId == null || !this.priceId.equals(other.priceId))) {
-            return false;
-        }
+        final Discount other = (Discount) obj;
         if (this.item != other.item && (this.item == null || !this.item.equals(other.item))) {
             return false;
         }
         if (this.feature != other.feature && (this.feature == null || !this.feature.equals(other.feature))) {
+            return false;
+        }
+        if (this.family != other.family && (this.family == null || !this.family.equals(other.family))) {
             return false;
         }
         if (this.value != other.value && (this.value == null || !this.value.equals(other.value))) {
@@ -130,6 +142,6 @@ public class Price implements Serializable {
 
     @Override
     public String toString() {
-        return "Price{" + "priceId=" + priceId + ", item=" + item + ", feature=" + feature + ", value=" + value + ", endorsedFrom=" + endorsedFrom + '}';
+        return "Discounts{" + "item=" + item + ", feature=" + feature + ", family=" + family + ", value=" + value + ", endorsedFrom=" + endorsedFrom + '}';
     }
 }
