@@ -2,6 +2,7 @@ package org.retail.entity.finance;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.joda.time.DateTime;
 import org.retail.entity.Family;
 import org.retail.entity.Feature;
 import org.retail.entity.Product;
@@ -30,12 +30,12 @@ public class Discount implements Serializable {
     private Feature feature;
     private Family family;
     private BigDecimal value;
-    private DateTime endorsedFrom;
+    private Calendar endorsedFrom;
 
     public Discount() {
     }
 
-    public Discount(Product item, Feature feature, Family family, BigDecimal value, DateTime endorsedFrom) {
+    public Discount(Product item, Feature feature, Family family, BigDecimal value, Calendar endorsedFrom) {
         this.item = item;
         this.feature = feature;
         this.family = family;
@@ -55,11 +55,11 @@ public class Discount implements Serializable {
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    public DateTime getEndorsedFrom() {
+    public Calendar getEndorsedFrom() {
         return endorsedFrom;
     }
 
-    public void setEndorsedFrom(DateTime endorsedFrom) {
+    public void setEndorsedFrom(Calendar endorsedFrom) {
         this.endorsedFrom = endorsedFrom;
     }
 
@@ -93,7 +93,7 @@ public class Discount implements Serializable {
         this.family = family;
     }
 
-    @Column(name = "value_", nullable = false, precision = 255, scale = 2)
+    @Column(name = "value_", nullable = false, precision = 50, scale = 2)
     public BigDecimal getValue() {
         return value;
     }

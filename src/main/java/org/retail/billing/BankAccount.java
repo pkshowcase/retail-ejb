@@ -2,6 +2,7 @@ package org.retail.billing;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import org.retail.entity.client.Customer;
 
@@ -10,6 +11,7 @@ import org.retail.entity.client.Customer;
  * @author Paul Kulitski
  */
 @Entity
+@DiscriminatorValue("BA")
 public class BankAccount extends BillingDetails implements Serializable {
 
     private String ibaNumber;

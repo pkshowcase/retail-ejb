@@ -1,6 +1,7 @@
 package org.retail.billing;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import org.retail.entity.client.Customer;
 
@@ -9,6 +10,7 @@ import org.retail.entity.client.Customer;
  * @author Paul Kulitski
  */
 @Entity
+@DiscriminatorValue("CC")
 public class CreditCard extends BillingDetails {
 
     private String ccNumber;

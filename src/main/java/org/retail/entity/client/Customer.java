@@ -35,7 +35,7 @@ public class Customer implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getCustomerId() {
         return customerId;
     }

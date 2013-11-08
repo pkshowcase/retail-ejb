@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author Paul Kulitski
  */
 @Entity
-@Table()
+@Table
 public class Product implements Serializable {
 
     private Long itemId;
@@ -45,7 +45,7 @@ public class Product implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getItemId() {
         return itemId;
     }
@@ -64,7 +64,7 @@ public class Product implements Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable
+    @JoinTable(name = "productfeatures")
     public Set<Feature> getFeatures() {
         return features;
     }
@@ -73,7 +73,7 @@ public class Product implements Serializable {
         this.features = features;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Family.class)
     @JoinColumn(nullable = false)
     public Family getFamily() {
         return family;

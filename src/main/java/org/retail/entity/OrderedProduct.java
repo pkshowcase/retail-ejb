@@ -68,7 +68,7 @@ public class OrderedProduct implements Serializable {
         this.product = item;
     }
 
-    @Column(nullable = false, precision = 255, scale = 10)
+    @Column(nullable = false, precision = 50, scale = 10)
     public BigDecimal getAmount() {
         return amount;
     }

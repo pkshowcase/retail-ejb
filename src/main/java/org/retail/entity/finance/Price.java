@@ -2,6 +2,7 @@ package org.retail.entity.finance;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.joda.time.DateTime;
 import org.retail.entity.Feature;
 import org.retail.entity.Product;
 
@@ -28,12 +28,12 @@ public class Price implements Serializable {
     private Product item;
     private Feature feature;
     private BigDecimal value;
-    private DateTime endorsedFrom;
+    private Calendar endorsedFrom;
 
     public Price() {
     }
 
-    public Price(Long priceId, Product item, Feature feature, BigDecimal value, DateTime endorsedFrom) {
+    public Price(Long priceId, Product item, Feature feature, BigDecimal value, Calendar endorsedFrom) {
         this.priceId = priceId;
         this.item = item;
         this.feature = feature;
@@ -43,11 +43,11 @@ public class Price implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    public DateTime getEndorsedFrom() {
+    public Calendar getEndorsedFrom() {
         return endorsedFrom;
     }
 
-    public void setEndorsedFrom(DateTime endorsedFrom) {
+    public void setEndorsedFrom(Calendar endorsedFrom) {
         this.endorsedFrom = endorsedFrom;
     }
 
@@ -81,7 +81,7 @@ public class Price implements Serializable {
         this.feature = feature;
     }
 
-    @Column(name = "price", precision = 255, scale = 2)
+    @Column(name = "price", precision = 50, scale = 2)
     public BigDecimal getValue() {
         return value;
     }

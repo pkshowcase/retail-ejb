@@ -55,7 +55,7 @@ public class Feature implements Serializable{
         this.title = title;
     }
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "features")
     public Set<Product> getItem() {
         return item;
     }
