@@ -1,4 +1,4 @@
-ejb-retail
+retail-ejb
 ==========
 
-EJB Module for retail application
+Retail Store EJB model
